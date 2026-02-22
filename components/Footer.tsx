@@ -34,7 +34,7 @@ export function Footer() {
                             <Link href="https://www.instagram.com/imagectirajpura/" target="_blank" className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all">
                                 <Instagram size={20} />
                             </Link>
-                            <Link href="#" className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                            <Link href="https://www.facebook.com/imagecti/" className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
                                 <Facebook size={20} />
                             </Link>
                         </div>
@@ -44,7 +44,7 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Navigation</h4>
                         <ul className="space-y-4">
-                            {["Home", "Courses", "Status Tracking", "About Us", "Contact"].map((link) => (
+                            {["Home", "Courses", "Status", "About", "Contact"].map((link) => (
                                 <li key={link}>
                                     <Link
                                         href={link === "Home" ? "/" : `/${link.toLowerCase().replace(" ", "")}`}
@@ -89,10 +89,10 @@ export function Footer() {
                                 <Phone size={18} className="text-primary shrink-0" />
                                 <Link href="tel:9888605627" className="hover:text-primary transition-colors">+91 98886-05627</Link>
                             </li>
-                            <li className="flex items-center gap-3 text-sm">
+                            {/* <li className="flex items-center gap-3 text-sm">
                                 <Mail size={18} className="text-primary shrink-0" />
                                 <span className="text-slate-400 italic">imagecti.rajpura@gmail.com</span>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>

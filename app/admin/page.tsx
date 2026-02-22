@@ -50,7 +50,7 @@ export default function AdminDashboard() {
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
-        router.push("/admin/login");
+        router.push("/");
     };
 
     const handleUpdateStatus = async (id: string, newStatus: string) => {
@@ -73,6 +73,7 @@ export default function AdminDashboard() {
             .from("students")
             .insert([{
                 ...newStudent,
+                id: newStudent.id.toUpperCase().trim(),
                 updated_at: new Date().toISOString()
             }])
             .select();
@@ -183,23 +184,23 @@ export default function AdminDashboard() {
                                 <X size={20} />
                             </button>
                         </div>
-                        <form onSubmit={handleAddStudent} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <form onSubmit={handleAddStudent} className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                             <input
                                 required
-                                className="p-3 rounded-xl border focus:border-primary"
+                                className="p-3 rounded-xl border focus:border-primary w-full"
                                 placeholder="Student ID (e.g. IMG001)"
                                 value={newStudent.id}
                                 onChange={e => setNewStudent({ ...newStudent, id: e.target.value })}
                             />
                             <input
                                 required
-                                className="p-3 rounded-xl border focus:border-primary"
+                                className="p-3 rounded-xl border focus:border-primary w-full"
                                 placeholder="Full Name"
                                 value={newStudent.name}
                                 onChange={e => setNewStudent({ ...newStudent, name: e.target.value })}
                             />
                             <select
-                                className="p-3 rounded-xl border focus:border-primary bg-white"
+                                className="p-3 rounded-xl border focus:border-primary bg-white w-full"
                                 value={newStudent.course}
                                 onChange={e => setNewStudent({ ...newStudent, course: e.target.value })}
                             >
@@ -208,7 +209,7 @@ export default function AdminDashboard() {
                                 <option>Tally ERP 9</option>
                                 <option>Computer Basics</option>
                             </select>
-                            <button type="submit" className="bg-primary text-white py-3 rounded-xl font-bold">
+                            <button type="submit" className="bg-primary text-white py-3 rounded-xl font-bold w-full hover:bg-primary/90 transition-colors">
                                 Save Record
                             </button>
                         </form>
@@ -218,13 +219,13 @@ export default function AdminDashboard() {
                 {/* Table */}
                 <div className="glass rounded-[2rem] shadow-xl overflow-hidden overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className="bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest">
+                        <thead className="bg-primary/5 text-primary text-[10px] md:text-xs font-bold uppercase tracking-widest">
                             <tr>
-                                <th className="px-8 py-6">Student Info</th>
-                                <th className="px-8 py-6">Course</th>
-                                <th className="px-8 py-6">Status</th>
-                                <th className="px-8 py-6">Certificate</th>
-                                <th className="px-8 py-6 text-right">Actions</th>
+                                <th className="px-4 md:px-8 py-4 md:py-6">Student Info</th>
+                                <th className="px-4 md:px-8 py-4 md:py-6 hidden sm:table-cell">Course</th>
+                                <th className="px-4 md:px-8 py-4 md:py-6">Status</th>
+                                <th className="px-4 md:px-8 py-4 md:py-6">Certificate</th>
+                                <th className="px-4 md:px-8 py-4 md:py-6 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-muted">
@@ -237,16 +238,20 @@ export default function AdminDashboard() {
                                 </tr>
                             ) : filteredStudents.map((s) => (
                                 <tr key={s.id} className="hover:bg-white/50 transition-colors group">
-                                    <td className="px-8 py-6 font-bold">{s.name} <span className="block text-[10px] text-muted-foreground uppercase">{s.id}</span></td>
-                                    <td className="px-8 py-6 text-sm italic">{s.course}</td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 md:px-8 py-4 md:py-6">
+                                        <div className="font-bold text-sm md:text-base">{s.name}</div>
+                                        <div className="text-[10px] text-muted-foreground uppercase">{s.id}</div>
+                                        <div className="sm:hidden text-[10px] italic mt-1">{s.course}</div>
+                                    </td>
+                                    <td className="px-4 md:px-8 py-4 md:py-6 text-sm italic hidden sm:table-cell">{s.course}</td>
+                                    <td className="px-4 md:px-8 py-4 md:py-6">
                                         {editingId === s.id ? (
                                             <select
                                                 autoFocus
                                                 defaultValue={s.status}
                                                 onChange={(e) => handleUpdateStatus(s.id, e.target.value)}
                                                 onBlur={() => setEditingId(null)}
-                                                className="p-1 border rounded text-xs"
+                                                className="p-1 border rounded text-[10px] w-20"
                                             >
                                                 <option value="accepted">Accepted</option>
                                                 <option value="in-progress">In Progress</option>
@@ -254,7 +259,7 @@ export default function AdminDashboard() {
                                             </select>
                                         ) : (
                                             <span className={cn(
-                                                "px-3 py-1 rounded-full text-[10px] font-bold uppercase",
+                                                "px-2 md:px-3 py-1 rounded-full text-[8px] md:text-[10px] font-bold uppercase whitespace-nowrap",
                                                 s.status === "accepted" ? "bg-green-50 text-green-700" :
                                                     s.status === "in-progress" ? "bg-amber-50 text-amber-700" : "bg-red-50 text-red-700"
                                             )}>
@@ -262,32 +267,44 @@ export default function AdminDashboard() {
                                             </span>
                                         )}
                                     </td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 md:px-8 py-4 md:py-6">
                                         <div className="flex items-center gap-3">
                                             {s.certificate_url ? (
-                                                <a href={s.certificate_url} target="_blank" className="text-primary hover:underline text-xs font-bold flex items-center gap-1">
-                                                    <CheckCircle size={14} /> View
-                                                </a>
+                                                <div className="flex flex-col md:flex-row gap-2 md:gap-3">
+                                                    <a href={s.certificate_url} target="_blank" className="text-primary hover:underline text-[10px] md:text-xs font-bold flex items-center gap-1 whitespace-nowrap">
+                                                        <CheckCircle size={14} /> <span className="hidden xs:inline">View</span>
+                                                    </a>
+                                                    <label className="cursor-pointer text-muted-foreground hover:text-primary transition-colors text-[10px] md:text-xs font-bold flex items-center gap-1">
+                                                        <input
+                                                            type="file"
+                                                            className="hidden"
+                                                            onChange={(e) => handleFileUpload(e, s.id)}
+                                                            disabled={uploadingId === s.id}
+                                                        />
+                                                        {uploadingId === s.id ? <Loader2 className="animate-spin" size={14} /> : <FileUp size={14} />}
+                                                        Replace
+                                                    </label>
+                                                </div>
                                             ) : (
-                                                <label className="cursor-pointer group/upload">
+                                                <label className="cursor-pointer group/upload text-muted-foreground hover:text-primary transition-colors">
                                                     <input
                                                         type="file"
                                                         className="hidden"
                                                         onChange={(e) => handleFileUpload(e, s.id)}
                                                         disabled={uploadingId === s.id}
                                                     />
-                                                    <div className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground group-hover/upload:text-primary">
+                                                    <div className="flex items-center gap-1 text-[8px] md:text-[10px] font-bold whitespace-nowrap">
                                                         {uploadingId === s.id ? <Loader2 className="animate-spin" size={14} /> : <FileUp size={14} />}
-                                                        Upload
+                                                        <span className="hidden xs:inline">Upload</span>
                                                     </div>
                                                 </label>
                                             )}
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6 text-right">
-                                        <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onClick={() => setEditingId(s.id)} className="p-2 text-primary hover:bg-primary/5 rounded-lg"><Edit2 size={16} /></button>
-                                            <button onClick={() => handleDelete(s.id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={16} /></button>
+                                    <td className="px-4 md:px-8 py-4 md:py-6 text-right">
+                                        <div className="flex justify-end gap-1 md:gap-2 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button onClick={() => setEditingId(s.id)} className="p-1 md:p-2 text-primary hover:bg-primary/5 rounded-lg"><Edit2 size={14} className="md:w-4 md:h-4" /></button>
+                                            <button onClick={() => handleDelete(s.id)} className="p-1 md:p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={14} className="md:w-4 md:h-4" /></button>
                                         </div>
                                     </td>
                                 </tr>

@@ -59,7 +59,7 @@ export default function Home() {
           <div className="absolute top-[20%] -right-[10%] w-[35%] h-[35%] bg-blue-400/10 rounded-full blur-[100px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10 w-full">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10 w-full sm:mt-0 md:mt-0  -mt-100">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -73,7 +73,7 @@ export default function Home() {
             >
               Certified ISO 9001:2015 Institute
             </motion.span>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+            <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
               Shaping Your <span className="gradient-text">Future</span> In Computing
             </h1>
             <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
@@ -160,9 +160,9 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 px-6">
+      <section className="py-12 px-6 -mt-100 sm:mt-0 md:mt-0">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {[
               { label: "Years Experience", value: "9+" },
               { label: "Courses Offered", value: "10+" },
@@ -177,8 +177,8 @@ export default function Home() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-4xl font-extrabold text-primary mb-2 tracking-tighter">{stat.value}</p>
-                <p className="text-muted-foreground text-sm font-medium uppercase tracking-widest">{stat.label}</p>
+                <p className="text-3xl md:text-4xl font-extrabold text-primary mb-1 md:mb-2 tracking-tighter">{stat.value}</p>
+                <p className="text-muted-foreground text-[10px] md:text-sm font-medium uppercase tracking-widest">{stat.label}</p>
               </motion.div>
             ))}
           </div>

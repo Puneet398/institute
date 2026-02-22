@@ -52,7 +52,7 @@ export default function ContactPage() {
                                     <h3 className="text-xl font-bold mb-1">Phone Numbers</h3>
                                     <div className="flex flex-col gap-1">
                                         <Link href="tel:9888605627" className="text-muted-foreground hover:text-primary transition-colors">+91 98886-05627</Link>
-                                        <Link href="tel:9888605627" className="text-muted-foreground hover:text-primary transition-colors">+91 98886-05627</Link>
+                                        {/* <Link href="tel:9888605627" className="text-muted-foreground hover:text-primary transition-colors">+91 98886-05627</Link> */}
                                     </div>
                                 </div>
                             </div>
@@ -96,90 +96,25 @@ export default function ContactPage() {
                         </div>
                     </motion.div>
 
-                    {/* Form Section */}
+                    {/* Map Section */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="glass p-10 md:p-12 rounded-[3.5rem] shadow-2xl relative"
+                        className="glass p-4 rounded-[3.5rem] shadow-2xl relative overflow-hidden h-[500px] lg:h-full min-h-[450px]"
                     >
-                        <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
-
-                        <h2 className="text-2xl font-bold mb-8">Send an Enquiry</h2>
-                        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Full Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="John Doe"
-                                        className="w-full p-4 rounded-2xl border border-muted focus:border-primary focus:outline-none bg-white/50"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        placeholder="+91 00000-00000"
-                                        className="w-full p-4 rounded-2xl border border-muted focus:border-primary focus:outline-none bg-white/50"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Interested Course</label>
-                                <select className="w-full p-4 rounded-2xl border border-muted focus:border-primary focus:outline-none bg-white/50 appearance-none">
-                                    <option>Select a course</option>
-                                    <option>Shorthand (Eng/Hindi/Pun)</option>
-                                    <option>Typing Mastery</option>
-                                    <option>Tally ERP 9 / Prime</option>
-                                    <option>Basic Computer Course</option>
-                                    <option>Spoken English</option>
-                                </select>
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Your Message</label>
-                                <textarea
-                                    rows={4}
-                                    placeholder="Tell us about your career goals..."
-                                    className="w-full p-4 rounded-2xl border border-muted focus:border-primary focus:outline-none bg-white/50 resize-none"
-                                />
-                            </div>
-
-                            <button className="w-full bg-primary text-white py-5 rounded-2xl font-bold text-lg shadow-xl hover:shadow-primary/20 transition-all hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-3 mt-4">
-                                Send Message
-                                <Send size={20} />
-                            </button>
-                        </form>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d110082.25822095766!2d76.56982958178713!3d30.43410135665086!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fdbf05f7ff727%3A0x422d249b1de508bd!2sImage%20computer%20%26%20typing%20institute%20Rajpura!5e0!3m2!1sen!2sin!4v1771790502495!5m2!1sen!2sin"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0, borderRadius: "2.5rem" }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Image Computer & Typing Institute Location"
+                        ></iframe>
                     </motion.div>
                 </div>
-
-                {/* Map Placeholder */}
-                <section className="mt-32">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="w-full h-[450px] bg-slate-200 rounded-[3rem] shadow-xl overflow-hidden relative group"
-                    >
-                        <div className="absolute inset-0 flex items-center justify-center text-center p-6 bg-slate-900/10 group-hover:bg-slate-900/5 transition-colors">
-                            <div className="glass p-8 rounded-3xl max-w-sm">
-                                <MapPin size={48} className="text-primary mx-auto mb-4" />
-                                <h3 className="text-xl font-bold mb-2">Visit Our Campus</h3>
-                                <p className="text-sm text-muted-foreground font-medium mb-6">We are located in the heart of Rajpura. Use Google Maps for precise navigation.</p>
-                                <Link
-                                    href="https://www.google.com/maps/search/?api=1&query=Image+Computer+%26+Typing+Institute+Rajpura"
-                                    target="_blank"
-                                    className="inline-flex items-center gap-2 text-primary font-bold hover:underline"
-                                >
-                                    Open in Maps
-                                    <Send size={16} />
-                                </Link>
-                            </div>
-                        </div>
-                    </motion.div>
-                </section>
             </div>
         </div>
     );

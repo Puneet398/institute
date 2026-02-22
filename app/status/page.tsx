@@ -33,7 +33,7 @@ export default function StatusPage() {
         const { data, error } = await supabase
             .from("students")
             .select("*")
-            .eq("id", studentId.toUpperCase().trim())
+            .ilike("id", studentId.trim())
             .single();
 
         if (!error && data) {
@@ -115,22 +115,22 @@ export default function StatusPage() {
                 >
                     <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
                         <div className="relative flex-1 group">
-                            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={24} />
+                            <Search className="absolute left-5 md:left-6 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors w-5 h-5 md:w-6 md:h-6" />
                             <input
                                 type="text"
-                                placeholder="Enter Student ID (e.g., IMG202401)"
+                                placeholder="Enter Student ID"
                                 value={studentId}
                                 onChange={(e) => setStudentId(e.target.value)}
-                                className="w-full pl-16 pr-6 py-6 rounded-3xl border-2 border-muted focus:border-primary focus:outline-none transition-all text-xl font-bold placeholder:font-normal placeholder:text-muted-foreground shadow-inner bg-white/50"
+                                className="w-full pl-12 md:pl-16 pr-4 md:pr-6 py-4 md:py-6 rounded-2xl md:rounded-3xl border-2 border-muted focus:border-primary focus:outline-none transition-all text-base md:text-xl font-bold placeholder:font-normal placeholder:text-muted-foreground shadow-inner bg-white/50"
                             />
                         </div>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="bg-primary text-white px-10 py-6 rounded-3xl font-extrabold text-xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0"
+                            className="bg-primary text-white px-8 md:px-10 py-4 md:py-6 rounded-2xl md:rounded-3xl font-extrabold text-lg md:text-xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0"
                         >
                             {loading ? <Loader2 className="animate-spin" /> : "Track Now"}
-                            {!loading && <ArrowRight size={24} />}
+                            {!loading && <ArrowRight size={20} className="md:w-6 md:h-6" />}
                         </button>
                     </form>
 
@@ -163,34 +163,34 @@ export default function StatusPage() {
                         >
                             {searchResult ? (
                                 <div className={cn(
-                                    "p-10 md:p-12 rounded-[3.5rem] border-4 shadow-2xl transition-all hover:scale-[1.01]",
+                                    "p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border-4 shadow-2xl transition-all hover:scale-[1.01]",
                                     getStatusConfig(searchResult.status).border,
                                     getStatusConfig(searchResult.status).bg
                                 )}>
                                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                                        <div className="flex items-center gap-6">
+                                        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left w-full">
                                             <div className={cn(
-                                                "w-20 h-20 rounded-[2rem] flex items-center justify-center shadow-lg",
+                                                "w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-[2rem] flex items-center justify-center shadow-lg shrink-0",
                                                 getStatusConfig(searchResult.status).bg,
                                                 getStatusConfig(searchResult.status).color,
-                                                "border-4 border-white"
+                                                "border-2 md:border-4 border-white"
                                             )}>
                                                 {(() => {
                                                     const Icon = getStatusConfig(searchResult.status).icon;
-                                                    return <Icon size={40} />;
+                                                    return <Icon size={32} className="md:w-10 md:h-10" />;
                                                 })()}
                                             </div>
-                                            <div>
-                                                <h3 className="text-3xl font-extrabold mb-1">Hi, {searchResult.name}</h3>
-                                                <p className="text-muted-foreground font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+                                            <div className="min-w-0 flex-1">
+                                                <h3 className="text-2xl md:text-3xl font-extrabold mb-1 truncate">Hi, {searchResult.name}</h3>
+                                                <p className="text-muted-foreground font-bold uppercase tracking-widest text-[10px] md:text-sm flex flex-wrap items-center justify-center sm:justify-start gap-2">
                                                     ID: <span className="text-primary">{searchResult.id}</span>
-                                                    <span className="w-1 h-1 bg-muted rounded-full" />
-                                                    {searchResult.course}
+                                                    <span className="hidden sm:inline w-1.5 h-1.5 bg-muted rounded-full" />
+                                                    <span className="w-full sm:w-auto">{searchResult.course}</span>
                                                 </p>
                                             </div>
                                         </div>
                                         <div className={cn(
-                                            "px-6 py-2 rounded-full font-black uppercase tracking-tighter text-lg border-2 bg-white",
+                                            "px-4 md:px-6 py-2 rounded-full font-black uppercase tracking-tighter text-sm md:text-lg border-2 bg-white shrink-0",
                                             getStatusConfig(searchResult.status).color,
                                             getStatusConfig(searchResult.status).border
                                         )}>
@@ -204,7 +204,7 @@ export default function StatusPage() {
                                         {getStatusConfig(searchResult.status).desc}
                                     </p>
 
-                                    {(searchResult.status.toLowerCase() === "accepted" && searchResult.certificate_url) && (
+                                    {searchResult.certificate_url && (
                                         <motion.div
                                             initial={{ opacity: 0, scale: 0.9 }}
                                             animate={{ opacity: 1, scale: 1 }}
@@ -213,13 +213,13 @@ export default function StatusPage() {
                                             <a
                                                 href={searchResult.certificate_url}
                                                 target="_blank"
-                                                className="inline-flex items-center gap-3 bg-slate-900 text-white px-8 py-5 rounded-2xl font-bold shadow-xl hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 group"
+                                                className="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-6 md:px-8 py-4 md:py-5 rounded-xl md:rounded-2xl font-bold shadow-xl hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 group w-full sm:w-auto"
                                             >
-                                                <FileDown size={24} className="group-hover:-translate-y-1 transition-transform" />
-                                                Download Digital Certificate
+                                                <FileDown size={20} className="md:w-6 md:h-6 group-hover:-translate-y-1 transition-transform" />
+                                                <span className="text-sm md:text-base">Download Digital Certificate</span>
                                             </a>
-                                            <p className="mt-4 text-sm text-green-700 font-bold flex items-center gap-2">
-                                                <ShieldCheck size={16} /> Digitally Signed and Verified
+                                            <p className="mt-4 text-[10px] md:text-sm text-green-700 font-bold flex items-center justify-center sm:justify-start gap-2">
+                                                <ShieldCheck size={14} className="md:w-4 md:h-4" /> Digitally Signed and Verified
                                             </p>
                                         </motion.div>
                                     )}
