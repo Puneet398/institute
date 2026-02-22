@@ -59,7 +59,7 @@ export default function Home() {
           <div className="absolute top-[20%] -right-[10%] w-[35%] h-[35%] bg-blue-400/10 rounded-full blur-[100px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10 w-full sm:mt-0 md:mt-0  -mt-100">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10 w-full">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -160,7 +160,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 px-6 -mt-100 sm:mt-0 md:mt-0">
+      <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {[
